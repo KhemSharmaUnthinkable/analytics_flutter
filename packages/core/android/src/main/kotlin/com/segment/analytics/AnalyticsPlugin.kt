@@ -6,6 +6,7 @@ import NativeContextApp
 import NativeContextDevice
 import NativeContextNetwork
 import NativeContextOS
+import NativeContextReferrer
 import NativeContextScreen
 import android.Manifest
 import android.annotation.SuppressLint
@@ -38,7 +39,7 @@ class AnalyticsPlugin : FlutterPlugin, NativeContextApi, EventChannel.StreamHand
     private fun ByteArray.toHexString() = joinToString("") { "%02x".format(it) }
 
     private val eventsChannel = "analytics/deep_link_events"
-    private val referrerUrl: String? = null
+    private var referrerUrl: String? = null
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
@@ -167,14 +168,18 @@ class AnalyticsPlugin : FlutterPlugin, NativeContextApi, EventChannel.StreamHand
                         name = "Android",
                         version = Build.VERSION.RELEASE,
                     ),
-                    referrer = referrerUrl,
                     screen = NativeContextScreen(
                         height = displayMetrics.heightPixels.toLong(),
                         width = displayMetrics.widthPixels.toLong(),
                         density = displayMetrics.density.toDouble(),
                     ),
                     timezone = TimeZone.getDefault().id,
-                    userAgent = System.getProperty("http.agent")
+                    userAgent = System.getProperty("http.agent"),
+                    referrer = if (referrerUrl.isNullOrBlank().not()) {
+                        NativeContextReferrer(url = referrerUrl)
+                    } else {
+                        null
+                    }
                 )
             )
         )
@@ -190,9 +195,9 @@ class AnalyticsPlugin : FlutterPlugin, NativeContextApi, EventChannel.StreamHand
                 if (dataString == null) {
                     events.error("UNAVAILABLE", "Link unavailable", null)
                 } else {
+                    referrerUrl = dataString
                     val data = mapOf("url" to dataString, "referring_application" to referringApplication)
                     events.success(data)
-                    referrerUrl = dataString
                 }
             }
         }
@@ -235,6 +240,10 @@ class AnalyticsPlugin : FlutterPlugin, NativeContextApi, EventChannel.StreamHand
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         binding.addOnNewIntentListener(this)
         if (this.context != null) {
+            val launchIntent = binding.activity.intent
+            if (Intent.ACTION_VIEW == launchIntent.action) {
+                referrerUrl = launchIntent.dataString
+            }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
                 binding.activity.intent.putExtra(
                     "referring_application",
@@ -264,4 +273,9 @@ class AnalyticsPlugin : FlutterPlugin, NativeContextApi, EventChannel.StreamHand
         }
         return false
     }
+
+    override fun clearReferrer() {
+        referrerUrl = null
+    }
+
 }

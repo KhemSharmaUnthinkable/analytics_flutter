@@ -23,7 +23,9 @@ class AnalyticsPlatformImpl extends AnalyticsPlatform {
         ),
         userAgent: web.window.navigator.userAgent,
         locale: web.window.navigator.language,
-        referrer: web.window.document.referrer, // SETH PLZ CHECK ME ON THIS
+        referrer: web.window.document.referrer.isNotEmpty 
+            ? NativeContextReferrer(url: web.window.document.referrer)
+            : null,
         screen: NativeContextScreen(
           height: web.window.screen.height,
           width: web.window.screen.width,

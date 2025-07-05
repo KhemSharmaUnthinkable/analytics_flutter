@@ -27,6 +27,9 @@ abstract class AnalyticsPlatform extends PlatformInterface {
   Future<NativeContext> getContext({bool collectDeviceId = false}) =>
       throw UnimplementedError('platformVersion() has not been implemented.');
 
+  Future<void> clearReferrer() =>
+      throw UnimplementedError('clearReferrer() has not been implemented.');
+
   /// A broadcast stream for receiving incoming link change events.
   ///
   /// The [Stream] emits opened links as [String]s.

@@ -320,6 +320,21 @@ class Company extends JSONExtendableImpl {
 }
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
+class ContextReferrer extends JSONExtendableImpl {
+  String url;
+
+  ContextReferrer(this.url, {super.custom});
+  ContextReferrer.fromNative(NativeContextReferrer nativeContextReferrer)
+      : url = nativeContextReferrer.url ?? "";
+
+  factory ContextReferrer.fromJson(Map<String, dynamic> json) =>
+      JSONExtendable.fromJson(json, _$ContextReferrerFromJson, ContextReferrer._builtInKeys);
+  Map<String, dynamic> toJson() => _toJson(_$ContextReferrerToJson(this));
+
+  static final Set<String> _builtInKeys = {"url"};
+}
+
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class Context extends JSONExtendableImpl {
   ContextApp app;
   ContextDevice device;
@@ -327,7 +342,7 @@ class Context extends JSONExtendableImpl {
   String locale;
   ContextNetwork network;
   ContextOS os;
-  String referrer;
+  ContextReferrer? referrer;
   ContextScreen screen;
   String timezone;
   String? instanceId;
@@ -356,7 +371,9 @@ class Context extends JSONExtendableImpl {
         os = nativeContext.os == null
             ? ContextOS("", "")
             : ContextOS.fromNative(nativeContext.os as NativeContextOS),
-        referrer = nativeContext.referrer ?? "",
+        referrer = nativeContext.referrer != null 
+            ? ContextReferrer.fromNative(nativeContext.referrer!)
+            : null,
         screen = nativeContext.screen == null
             ? ContextScreen(0, 0)
             : ContextScreen.fromNative(

@@ -206,36 +206,27 @@ UserTraits _$UserTraitsFromJson(Map<String, dynamic> json) => UserTraits(
       custom: json['custom'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$UserTraitsToJson(UserTraits instance) {
-  final val = <String, dynamic>{
-    'custom': instance.custom,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('address', instance.address?.toJson());
-  writeNotNull('company', instance.company?.toJson());
-  writeNotNull('age', instance.age);
-  writeNotNull('avatar', instance.avatar);
-  writeNotNull('birthday', instance.birthday);
-  writeNotNull('createdAt', instance.createdAt);
-  writeNotNull('description', instance.description);
-  writeNotNull('email', instance.email);
-  writeNotNull('firstName', instance.firstName);
-  writeNotNull('gender', instance.gender);
-  writeNotNull('id', instance.id);
-  writeNotNull('lastName', instance.lastName);
-  writeNotNull('name', instance.name);
-  writeNotNull('phone', instance.phone);
-  writeNotNull('title', instance.title);
-  writeNotNull('username', instance.username);
-  writeNotNull('website', instance.website);
-  return val;
-}
+Map<String, dynamic> _$UserTraitsToJson(UserTraits instance) =>
+    <String, dynamic>{
+      'custom': instance.custom,
+      if (instance.address?.toJson() case final value?) 'address': value,
+      if (instance.company?.toJson() case final value?) 'company': value,
+      if (instance.age case final value?) 'age': value,
+      if (instance.avatar case final value?) 'avatar': value,
+      if (instance.birthday case final value?) 'birthday': value,
+      if (instance.createdAt case final value?) 'createdAt': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.email case final value?) 'email': value,
+      if (instance.firstName case final value?) 'firstName': value,
+      if (instance.gender case final value?) 'gender': value,
+      if (instance.id case final value?) 'id': value,
+      if (instance.lastName case final value?) 'lastName': value,
+      if (instance.name case final value?) 'name': value,
+      if (instance.phone case final value?) 'phone': value,
+      if (instance.title case final value?) 'title': value,
+      if (instance.username case final value?) 'username': value,
+      if (instance.website case final value?) 'website': value,
+    };
 
 GroupTraits _$GroupTraitsFromJson(Map<String, dynamic> json) => GroupTraits(
       address: json['address'] == null
@@ -255,31 +246,22 @@ GroupTraits _$GroupTraitsFromJson(Map<String, dynamic> json) => GroupTraits(
       custom: json['custom'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$GroupTraitsToJson(GroupTraits instance) {
-  final val = <String, dynamic>{
-    'custom': instance.custom,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('address', instance.address?.toJson());
-  writeNotNull('avatar', instance.avatar);
-  writeNotNull('createdAt', instance.createdAt);
-  writeNotNull('description', instance.description);
-  writeNotNull('email', instance.email);
-  writeNotNull('employees', instance.employees);
-  writeNotNull('id', instance.id);
-  writeNotNull('industry', instance.industry);
-  writeNotNull('name', instance.name);
-  writeNotNull('phone', instance.phone);
-  writeNotNull('website', instance.website);
-  writeNotNull('plan', instance.plan);
-  return val;
-}
+Map<String, dynamic> _$GroupTraitsToJson(GroupTraits instance) =>
+    <String, dynamic>{
+      'custom': instance.custom,
+      if (instance.address?.toJson() case final value?) 'address': value,
+      if (instance.avatar case final value?) 'avatar': value,
+      if (instance.createdAt case final value?) 'createdAt': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.email case final value?) 'email': value,
+      if (instance.employees case final value?) 'employees': value,
+      if (instance.id case final value?) 'id': value,
+      if (instance.industry case final value?) 'industry': value,
+      if (instance.name case final value?) 'name': value,
+      if (instance.phone case final value?) 'phone': value,
+      if (instance.website case final value?) 'website': value,
+      if (instance.plan case final value?) 'plan': value,
+    };
 
 Address _$AddressFromJson(Map<String, dynamic> json) => Address(
       city: json['city'] as String?,
@@ -290,24 +272,14 @@ Address _$AddressFromJson(Map<String, dynamic> json) => Address(
       custom: json['custom'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$AddressToJson(Address instance) {
-  final val = <String, dynamic>{
-    'custom': instance.custom,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('city', instance.city);
-  writeNotNull('country', instance.country);
-  writeNotNull('postalCode', instance.postalCode);
-  writeNotNull('state', instance.state);
-  writeNotNull('street', instance.street);
-  return val;
-}
+Map<String, dynamic> _$AddressToJson(Address instance) => <String, dynamic>{
+      'custom': instance.custom,
+      if (instance.city case final value?) 'city': value,
+      if (instance.country case final value?) 'country': value,
+      if (instance.postalCode case final value?) 'postalCode': value,
+      if (instance.state case final value?) 'state': value,
+      if (instance.street case final value?) 'street': value,
+    };
 
 Company _$CompanyFromJson(Map<String, dynamic> json) => Company(
       employeeCount: (json['employeeCount'] as num?)?.toInt(),
@@ -318,24 +290,26 @@ Company _$CompanyFromJson(Map<String, dynamic> json) => Company(
       custom: json['custom'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$CompanyToJson(Company instance) {
-  final val = <String, dynamic>{
-    'custom': instance.custom,
-  };
+Map<String, dynamic> _$CompanyToJson(Company instance) => <String, dynamic>{
+      'custom': instance.custom,
+      if (instance.name case final value?) 'name': value,
+      if (instance.id case final value?) 'id': value,
+      if (instance.industry case final value?) 'industry': value,
+      if (instance.employeeCount case final value?) 'employeeCount': value,
+      if (instance.plan case final value?) 'plan': value,
+    };
 
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
+ContextReferrer _$ContextReferrerFromJson(Map<String, dynamic> json) =>
+    ContextReferrer(
+      json['url'] as String,
+      custom: json['custom'] as Map<String, dynamic>?,
+    );
 
-  writeNotNull('name', instance.name);
-  writeNotNull('id', instance.id);
-  writeNotNull('industry', instance.industry);
-  writeNotNull('employeeCount', instance.employeeCount);
-  writeNotNull('plan', instance.plan);
-  return val;
-}
+Map<String, dynamic> _$ContextReferrerToJson(ContextReferrer instance) =>
+    <String, dynamic>{
+      'custom': instance.custom,
+      'url': instance.url,
+    };
 
 Context _$ContextFromJson(Map<String, dynamic> json) => Context(
       ContextApp.fromJson(json['app'] as Map<String, dynamic>),
@@ -344,7 +318,9 @@ Context _$ContextFromJson(Map<String, dynamic> json) => Context(
       json['locale'] as String,
       ContextNetwork.fromJson(json['network'] as Map<String, dynamic>),
       ContextOS.fromJson(json['os'] as Map<String, dynamic>),
-      json['referrer'] as String,
+      json['referrer'] == null
+          ? null
+          : ContextReferrer.fromJson(json['referrer'] as Map<String, dynamic>),
       ContextScreen.fromJson(json['screen'] as Map<String, dynamic>),
       json['timezone'] as String,
       UserTraits.fromJson(json['traits'] as Map<String, dynamic>),
@@ -352,30 +328,20 @@ Context _$ContextFromJson(Map<String, dynamic> json) => Context(
       custom: json['custom'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$ContextToJson(Context instance) {
-  final val = <String, dynamic>{
-    'custom': instance.custom,
-    'app': instance.app.toJson(),
-    'device': instance.device.toJson(),
-    'library': instance.library.toJson(),
-    'locale': instance.locale,
-    'network': instance.network.toJson(),
-    'os': instance.os.toJson(),
-    'referrer': instance.referrer,
-    'screen': instance.screen.toJson(),
-    'timezone': instance.timezone,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('instanceId', instance.instanceId);
-  val['traits'] = instance.traits.toJson();
-  return val;
-}
+Map<String, dynamic> _$ContextToJson(Context instance) => <String, dynamic>{
+      'custom': instance.custom,
+      'app': instance.app.toJson(),
+      'device': instance.device.toJson(),
+      'library': instance.library.toJson(),
+      'locale': instance.locale,
+      'network': instance.network.toJson(),
+      'os': instance.os.toJson(),
+      if (instance.referrer?.toJson() case final value?) 'referrer': value,
+      'screen': instance.screen.toJson(),
+      'timezone': instance.timezone,
+      if (instance.instanceId case final value?) 'instanceId': value,
+      'traits': instance.traits.toJson(),
+    };
 
 ContextApp _$ContextAppFromJson(Map<String, dynamic> json) => ContextApp(
       json['build'] as String,
@@ -408,28 +374,20 @@ ContextDevice _$ContextDeviceFromJson(Map<String, dynamic> json) =>
       custom: json['custom'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$ContextDeviceToJson(ContextDevice instance) {
-  final val = <String, dynamic>{
-    'custom': instance.custom,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['manufacturer'] = instance.manufacturer;
-  val['model'] = instance.model;
-  val['name'] = instance.name;
-  val['type'] = instance.type;
-  writeNotNull('adTrackingEnabled', instance.adTrackingEnabled);
-  writeNotNull('advertisingId', instance.advertisingId);
-  writeNotNull('trackingStatus', instance.trackingStatus);
-  writeNotNull('token', instance.token);
-  return val;
-}
+Map<String, dynamic> _$ContextDeviceToJson(ContextDevice instance) =>
+    <String, dynamic>{
+      'custom': instance.custom,
+      if (instance.id case final value?) 'id': value,
+      'manufacturer': instance.manufacturer,
+      'model': instance.model,
+      'name': instance.name,
+      'type': instance.type,
+      if (instance.adTrackingEnabled case final value?)
+        'adTrackingEnabled': value,
+      if (instance.advertisingId case final value?) 'advertisingId': value,
+      if (instance.trackingStatus case final value?) 'trackingStatus': value,
+      if (instance.token case final value?) 'token': value,
+    };
 
 ContextLibrary _$ContextLibraryFromJson(Map<String, dynamic> json) =>
     ContextLibrary(
@@ -481,19 +439,10 @@ ContextScreen _$ContextScreenFromJson(Map<String, dynamic> json) =>
       custom: json['custom'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$ContextScreenToJson(ContextScreen instance) {
-  final val = <String, dynamic>{
-    'custom': instance.custom,
-    'height': instance.height,
-    'width': instance.width,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('density', instance.density);
-  return val;
-}
+Map<String, dynamic> _$ContextScreenToJson(ContextScreen instance) =>
+    <String, dynamic>{
+      'custom': instance.custom,
+      'height': instance.height,
+      'width': instance.width,
+      if (instance.density case final value?) 'density': value,
+    };

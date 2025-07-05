@@ -187,6 +187,10 @@ class Analytics with ClientMethods {
 
     state.userInfo.setState(UserInfo(anonymousId));
 
+    await AnalyticsPlatform.instance.clearReferrer();
+
+    await refreshContext();
+
     getPluginsWithReset(_timeline).forEach((plugin) => plugin.reset());
 
     log("Client has been reset", kind: LogFilterKind.debug);
@@ -204,8 +208,9 @@ class Analytics with ClientMethods {
         getPluginsWithFlush(_timeline).map((plugin) => plugin.flush()));
   }
 
-  void _trackDeepLinkEvent(DeepLinkData deepLinkProperties) {
+  Future<void> _trackDeepLinkEvent(DeepLinkData deepLinkProperties) async {
     if (deepLinkProperties.url != '') {
+      await refreshContext(); // Ensure latest context (with referrer)
       track("Deep Link Opened", properties: deepLinkProperties.toJson());
     }
   }
@@ -423,6 +428,11 @@ class Analytics with ClientMethods {
         track("Application Backgrounded");
       }
     }
+  }
+
+  /// Public method to refresh the context with the latest native data (including referrer)
+  Future<void> refreshContext() async {
+    await _checkInstalledVersion();
   }
 }
 

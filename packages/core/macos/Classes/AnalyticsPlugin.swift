@@ -54,12 +54,13 @@ internal static var device = VendorSystem.current
             os: NativeContextOS(
                 name: device.systemName,
                 version: device.systemVersion),
-            referrer: nil,
             screen: NativeContextScreen(
                 height: Int32(screen.height),
                 width: Int32(screen.width)),
             timezone: TimeZone.current.identifier,
-            userAgent: userAgent)))
+            userAgent: userAgent,
+            referrer: nil
+        )))
     }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
