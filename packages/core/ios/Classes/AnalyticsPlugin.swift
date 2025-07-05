@@ -4,6 +4,7 @@ import Foundation
 
 public class AnalyticsPlugin: NSObject, FlutterPlugin, NativeContextApi, FlutterStreamHandler, FlutterApplicationLifeCycleDelegate {
     private var pendingDeeplinkEventsQueue:[[String:String?]] = []
+    private var referrerUrl: String? = nil
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         _eventSink = events
         processPendingDeeplinkEventsQueue();

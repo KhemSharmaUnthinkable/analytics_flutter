@@ -248,17 +248,16 @@ class AnalyticsPlugin : FlutterPlugin, NativeContextApi, EventChannel.StreamHand
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         binding.addOnNewIntentListener(this)
         if (this.context != null) { // TODO check this
-            val launchIntent = binding.activity.intent
-            if (Intent.ACTION_VIEW == launchIntent.action) {
-                referrerUrl = launchIntent.dataString
-            }
+           
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                binding.activity.intent.putExtra(
+                val launchIntent = binding.activity.intent
+                referrerUrl = launchIntent.dataString
+                launchIntent.putExtra(
                     "referring_application",
                     binding.activity.referrer.toString()
                 )
             }
-            this.handleIntent(this.context!!, binding.activity.intent)
+            this.handleIntent(this.context!!, launchIntent)
         }
     }
 
