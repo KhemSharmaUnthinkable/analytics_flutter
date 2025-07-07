@@ -80,7 +80,6 @@ public class AnalyticsPlugin: NSObject, FlutterPlugin, NativeContextApi, Flutter
             break
         }
         
-        print("iOS AnalyticsPlugin: getContext called, referrerUrl: \(referrerUrl ?? "nil")")
         completion(.success(NativeContext(
             app: app.count != 0 ? NativeContextApp(
                 build: app["CFBundleVersion"] as! String? ?? "",
