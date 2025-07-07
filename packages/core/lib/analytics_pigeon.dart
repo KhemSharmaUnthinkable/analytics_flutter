@@ -1,4 +1,3 @@
-
 import 'package:segment_analytics/analytics_platform_interface.dart';
 import 'package:flutter/services.dart';
 
@@ -15,6 +14,11 @@ class AnalyticsPlatformImpl extends AnalyticsPlatform {
   @override
   Future<NativeContext> getContext({bool collectDeviceId = false}) {
     return api.getContext(collectDeviceId);
+  }
+
+  @override
+  Future<void> clearReferrer() {
+    return api.clearReferrer();
   }
 
   @override

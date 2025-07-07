@@ -1,5 +1,9 @@
 import 'package:pigeon/pigeon.dart';
 
+class NativeContextReferrer {
+  String? url;
+}
+
 class NativeContext {
   NativeContextApp? app;
   NativeContextDevice? device;
@@ -10,6 +14,7 @@ class NativeContext {
   NativeContextScreen? screen;
   String? timezone;
   String? userAgent;
+  NativeContextReferrer? referrer;
 }
 
 class NativeContextApp {
@@ -58,4 +63,6 @@ class NativeContextScreen {
 abstract class NativeContextApi {
   @async
   NativeContext getContext(bool collectDeviceId);
+  
+  void clearReferrer();
 }

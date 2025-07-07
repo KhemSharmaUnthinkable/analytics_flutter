@@ -11,6 +11,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:segment_analytics/native_context.dart';
 
 import 'mocks/mocks.dart';
 import 'mocks/mocks.mocks.dart';
@@ -29,7 +30,7 @@ void main() {
     late Analytics analytics;
     late MockHTTPClient httpClient;
     setUp(() async {
-      AnalyticsPlatform.instance = MockPlatform();
+      AnalyticsPlatform.instance = _MockAnalyticsPlatform();
       // Prevents spamming the test console. Eventually logging info will be behind a debug flag so this won't be needed
       LogFactory.logger = Mocks.logTarget();
       SharedPreferences.setMockInitialValues({});
@@ -138,6 +139,22 @@ void main() {
       expect(analytics, isA<Analytics>());
     });
   });
+}
+
+class _MockAnalyticsPlatform extends AnalyticsPlatform {
+  @override
+  Future<void> clearReferrer() async {
+    // Do nothing
+  }
+
+  @override
+  Future<NativeContext> getContext({bool collectDeviceId = false}) async {
+    // Return a dummy NativeContext
+    return NativeContext();
+  }
+
+  @override
+  Stream<Map<String, dynamic>> get linkStream => const Stream.empty();
 }
 
 class MockAnalyticsPlatform extends AnalyticsPlatform { }
