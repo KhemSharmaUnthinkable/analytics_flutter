@@ -17,6 +17,7 @@ class MockPlatform extends AnalyticsPlatform {
     mockNativeContext.os = NativeContextOS();
     mockNativeContext.os!.name = "iOS";
     mockNativeContext.os!.version = "14.1";
+    mockNativeContext.referrer = NativeContextReferrer(url: "referrer");
     mockNativeContext.screen = NativeContextScreen();
     mockNativeContext.screen!.height = 800;
     mockNativeContext.screen!.width = 600;
@@ -57,7 +58,8 @@ class MockPlatform extends AnalyticsPlatform {
       osObj,
       screenObj,
       "timezone",
-      "userAgent"
+      "userAgent",
+      ["referrer"] // NativeContextReferrer with url (now at the end)
     ];
     return encondeObj;
   }
@@ -146,8 +148,32 @@ void main() {
     });
 
     test("Test decode method on NativeContext", () async {
-      final encodeObject = MockPlatform().buildObject();
-      final contextDecode = NativeContext.decode(encodeObject);
+      // Build a properly structured encodeObject using encode() for each field
+      final encodeObject = [
+        NativeContextApp().encode(),
+        NativeContextDevice().encode(),
+        NativeContextLibrary().encode(),
+        "en_EN", // locale
+        NativeContextNetwork().encode(),
+        NativeContextOS().encode(),
+        NativeContextScreen().encode(),
+        "timezone", // timezone
+        "userAgent", // userAgent
+        NativeContextReferrer(url: "referrer").encode(),
+      ];
+      // Decode each field to match the expected types
+      final contextDecode = NativeContext(
+        app: NativeContextApp.decode(encodeObject[0]),
+        device: NativeContextDevice.decode(encodeObject[1]),
+        library: NativeContextLibrary.decode(encodeObject[2]),
+        locale: encodeObject[3] as String?,
+        network: NativeContextNetwork.decode(encodeObject[4]),
+        os: NativeContextOS.decode(encodeObject[5]),
+        screen: NativeContextScreen.decode(encodeObject[6]),
+        timezone: encodeObject[7] as String?,
+        userAgent: encodeObject[8] as String?,
+        referrer: NativeContextReferrer.decode(encodeObject[9]),
+      );
       expect(contextDecode.toString() != encodeObject.toString(), true);
     });
 

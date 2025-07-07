@@ -4,6 +4,7 @@ import Foundation
 
 public class AnalyticsPlugin: NSObject, FlutterPlugin, NativeContextApi, FlutterStreamHandler, FlutterApplicationLifeCycleDelegate {
     private var pendingDeeplinkEventsQueue:[[String:String?]] = []
+    private var referrerUrl: String? = nil
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         _eventSink = events
         processPendingDeeplinkEventsQueue();
@@ -16,8 +17,18 @@ public class AnalyticsPlugin: NSObject, FlutterPlugin, NativeContextApi, Flutter
     }
     
     var _eventSink:FlutterEventSink?;
+    
+    // Handle cold start deep links
+    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        if let url = launchOptions?[.url] as? URL {
+            referrerUrl = url.absoluteString
+        }
+        return true
+    }
+    
     public func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool{
         let sourceApplication = options[.sourceApplication] as? String;
+        referrerUrl = url.absoluteString;
         if (_eventSink != nil) {
             _eventSink?(["url": url.absoluteString, "referring_application": sourceApplication])
         }else{
@@ -90,10 +101,12 @@ public class AnalyticsPlugin: NSObject, FlutterPlugin, NativeContextApi, Flutter
                 name: device.systemName,
                 version: device.systemVersion),
             screen: NativeContextScreen(
-                height: Int32(screen.height),
-                width: Int32(screen.width)),
+                height: Int64(screen.height),
+                width: Int64(screen.width)),
             timezone: TimeZone.current.identifier,
-            userAgent: userAgent)))
+            userAgent: userAgent,
+            referrer: referrerUrl != nil && !referrerUrl!.isEmpty ? NativeContextReferrer(url: referrerUrl) : nil
+        )))
     }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -105,5 +118,9 @@ public class AnalyticsPlugin: NSObject, FlutterPlugin, NativeContextApi, Flutter
         let channel:FlutterEventChannel = FlutterEventChannel(name: "analytics/deep_link_events", binaryMessenger: registrar.messenger())
         channel.setStreamHandler(api)
         registrar.addApplicationDelegate(plugin)
+    }
+    
+    func clearReferrer() throws {
+        referrerUrl = nil
     }
 }

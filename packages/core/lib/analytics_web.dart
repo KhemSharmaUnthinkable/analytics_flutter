@@ -23,14 +23,17 @@ class AnalyticsPlatformImpl extends AnalyticsPlatform {
         ),
         userAgent: web.window.navigator.userAgent,
         locale: web.window.navigator.language,
+        referrer: web.window.document.referrer.isNotEmpty
+            ? NativeContextReferrer(url: web.window.document.referrer)
+            : null,
         screen: NativeContextScreen(
           height: web.window.screen.height,
           width: web.window.screen.width,
         ),
       );
-      
+
       /*
-          - Checks for <meta name="app-version" content="1.2.3"> in <root>/web/index.html 
+          - Checks for <meta name="app-version" content="1.2.3"> in <root>/web/index.html
              and return the value inside 'content'
           - Returns the browser version as fallback
       */
