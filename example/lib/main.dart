@@ -18,7 +18,9 @@ class MyApp extends MaterialApp {
 
 class _MyAppState extends State<MyApp> {
   final analytics = createClient(Configuration(writeKey,
-      debug: true, trackApplicationLifecycleEvents: true));
+      debug: true,
+      trackApplicationLifecycleEvents: true,
+      trackDeeplinks: true));
 
   @override
   void initState() {

@@ -1,42 +1,76 @@
 PODS:
-  - analytics (0.0.1):
+  - Firebase/CoreOnly (11.13.0):
+    - FirebaseCore (~> 11.13.0)
+  - firebase_core (3.14.0):
+    - Firebase/CoreOnly (= 11.13.0)
     - Flutter
+  - FirebaseCore (11.13.0):
+    - FirebaseCoreInternal (~> 11.13.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/Logger (~> 8.1)
+  - FirebaseCoreInternal (11.13.0):
+    - "GoogleUtilities/NSData+zlib (~> 8.1)"
   - Flutter (1.0.0)
   - flutter_fgbg (0.0.1):
     - Flutter
+  - GoogleUtilities/Environment (8.1.0):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.1.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - "GoogleUtilities/NSData+zlib (8.1.0)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.1.0)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - segment_analytics (0.0.1):
+    - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
 
 DEPENDENCIES:
-  - analytics (from `.symlinks/plugins/analytics/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - flutter_fgbg (from `.symlinks/plugins/flutter_fgbg/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - segment_analytics (from `.symlinks/plugins/segment_analytics/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
+SPEC REPOS:
+  trunk:
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - GoogleUtilities
+
 EXTERNAL SOURCES:
-  analytics:
-    :path: ".symlinks/plugins/analytics/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
   flutter_fgbg:
     :path: ".symlinks/plugins/flutter_fgbg/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  segment_analytics:
+    :path: ".symlinks/plugins/segment_analytics/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
 
 SPEC CHECKSUMS:
-  analytics: 687312b0561f4499b4b7fc3bcfa395feed3fa138
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_fgbg: 31c0d1140a131daea2d342121808f6aa0dcd879d
-  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
-  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  Firebase: 3435bc66b4d494c2f22c79fd3aae4c1db6662327
+  firebase_core: 700bac7ed92bb754fd70fbf01d72b36ecdd6d450
+  FirebaseCore: c692c7f1c75305ab6aff2b367f25e11d73aa8bd0
+  FirebaseCoreInternal: 29d7b3af4aaf0b8f3ed20b568c13df399b06f68c
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_fgbg: d3da78df78454b1808f0829a5da9cd17dfe16444
+  GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  segment_analytics: 74650ab14e31db0a16a1599dbc11aabd644192a6
+  shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
 
-PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+PODFILE CHECKSUM: 18ea81bef73e28fdb03aa9e0ac2359e4d94d3ca7
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.16.2

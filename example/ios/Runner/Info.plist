@@ -47,5 +47,16 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.segment.analytics_example</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>faseg</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
